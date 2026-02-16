@@ -1,34 +1,15 @@
-# Dependencies
+# 1. Игнорируем зависимости и сборку
 node_modules/
-.pnp
-.pnp.js
-
-# Production build
 dist/
 build/
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# IDE
-.vscode/
-.idea/
-
-# OS
+# 2. Игнорируем системные файлы
 .DS_Store
-Thumbs.db
+.env
+.idea/
+.vscode/
+
+# 3. Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
