@@ -41,7 +41,37 @@ const App = () => {
   const [viewingReport, setViewingReport] = useState(null);
   const [analyzingManagers, setAnalyzingManagers] = useState({});
 
-  useEffect(() => { fetchStructure(); }, []);
+  useEffect(() => {
+    fetchStructure();
+
+    // SSE Автообновление
+    const evtSource = new EventSource('/api/events');
+
+    evtSource.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'refresh') {
+          console.log("♻️ Получено событие обновления!");
+          fetchStructure();
+          // Also refresh calls if a manager is selected
+          if (selectedManager && selectedWeek && selectedCompany) {
+            loadCalls(selectedManager);
+          }
+        }
+      } catch (err) { console.error(err); }
+    };
+
+    evtSource.onerror = (e) => {
+      console.log('SSE connection error, reconnecting...');
+      evtSource.close();
+      // Reconnect after 3 seconds
+      setTimeout(() => {
+        fetchStructure(); // Fallback to polling
+      }, 3000);
+    };
+
+    return () => evtSource.close();
+  }, [selectedManager, selectedWeek, selectedCompany]);
 
   const fetchStructure = async () => {
     try {

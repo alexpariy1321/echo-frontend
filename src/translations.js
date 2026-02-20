@@ -1,5 +1,6 @@
 export const MANAGER_NAMES = {
   "Volkov_Ivan": "Волков Иван",
+  "Akimova_Ekaterina": "Акимова Екатерина",
   "Popov_Denis": "Попов Денис",
   "Ahmedshin_Dmitry": "Ахмедшин Дмитрий",
   "Garyaev_Maxim": "Гаряев Максим", // Ты написал "Гаряев Денис", но в коде Maxim. Уточни, если Максим.
